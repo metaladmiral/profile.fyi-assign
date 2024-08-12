@@ -1,0 +1,39 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+function NavLink({ href, children }: NavLinkProps) {
+  const pathname = usePathname();
+  const activeClass = pathname === href ? "text-white" : "";
+  return (
+    <Link href={href}>
+      <li className={` text-center py-3 ${activeClass}`}>{children}</li>
+    </Link>
+  );
+}
+
+export default function Header() {
+  return (
+    <>
+      <br />
+      <center>
+        <h1 className="text-white font-bold mx-auto text-3xl">
+          Profile.fyi Assignment
+        </h1>
+      </center>
+
+      <nav className="w-80 bg-gray-800 mx-auto shadow-2xl h-12 rounded-lg mt-10">
+        <ul className="flex justify-around items-center h-full text-gray-600 text-md cursor-pointer font-bold">
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/cart">Cart</NavLink>
+        </ul>
+      </nav>
+    </>
+  );
+}
