@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
 
-type CartItem = {
-  id: string;
-};
+import { useAppDispatch } from "@/redux/hooks";
+import { addItem } from "@/app/cart/cartSlice";
 
 type Product = {
   id: string;
@@ -13,31 +11,11 @@ type Product = {
 };
 
 export default function ProductList({ products }: { products: Product[] }) {
-  const [cartItems, setCartItems] = useState<CartItem[] | null>(null);
-
-  useEffect(() => {
-    let cartItemStr = localStorage.getItem("cartItems") || null;
-    if (!cartItemStr) {
-      cartItemStr = "[]";
-    }
-    let cartItemsObj: CartItem[] = JSON.parse(cartItemStr);
-    setCartItems(cartItemsObj);
-  }, []);
+  const dispatch = useAppDispatch();
 
   const addItemToCart = (itemId: string) => {
-    let currentCartItemsJson = localStorage.getItem("cartItems");
-    if (currentCartItemsJson) {
-      const currentCartItemsObj: CartItem[] = JSON.parse(currentCartItemsJson);
-      if (currentCartItemsJson.includes(itemId)) return;
-      localStorage.setItem(
-        "cartItems",
-        JSON.stringify([...currentCartItemsObj, itemId])
-      );
-      return;
-    }
-    localStorage.setItem("cartItems", JSON.stringify([itemId]));
+    dispatch(addItem([itemId]));
   };
-
   return (
     <>
       {products.map((items: Product) => (
@@ -53,8 +31,11 @@ export default function ProductList({ products }: { products: Product[] }) {
           <h2 className="mt-4 text-xl font-bold text-white">{items.title}</h2>
           <p className="mt-2 text-white">${items.price}</p>
           <button
+            type="submit"
             className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-lg"
-            onClick={() => addItemToCart(items.id)}
+            onClick={() => {
+              addItemToCart(items.id);
+            }}
           >
             Add to Cart
           </button>

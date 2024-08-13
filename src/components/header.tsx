@@ -1,7 +1,8 @@
 "use client";
-
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useAppSelector } from "@/redux/hooks";
+import { selectItems } from "@/app/cart/cartSlice";
 
 interface NavLinkProps {
   href: string;
@@ -19,6 +20,13 @@ function NavLink({ href, children }: NavLinkProps) {
 }
 
 export default function Header() {
+  const items = useAppSelector(selectItems);
+
+  let itemCount = 0;
+  items.map((item) => {
+    itemCount++;
+  });
+
   return (
     <>
       <br />
@@ -31,7 +39,7 @@ export default function Header() {
       <nav className="w-80 bg-gray-800 mx-auto shadow-2xl h-12 rounded-lg mt-10">
         <ul className="flex justify-around items-center h-full text-gray-600 text-md cursor-pointer font-bold">
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/cart">Cart</NavLink>
+          <NavLink href="/cart">Cart {itemCount}</NavLink>
         </ul>
       </nav>
     </>
