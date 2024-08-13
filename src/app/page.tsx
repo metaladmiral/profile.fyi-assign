@@ -3,7 +3,7 @@ import ProductList from "@/components/product_list";
 
 export default async function Home() {
   const res = await fetch(
-    "https://dummyjson.com/products?limit=10&select=title,price,images"
+    "https://dummyjson.com/products?limit=3&select=title,price,images"
   );
   const jsonResponse = await res.json();
   const products = jsonResponse.products;
