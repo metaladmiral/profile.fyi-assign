@@ -21,6 +21,7 @@ export default function CartSummary() {
     const productDetails = products[items[item].id - 1] as Product;
     totalCartPrice += productDetails.price * items[item].quantity;
   }
+  const totalCartPriceString = parseFloat(totalCartPrice.toString()).toFixed(2);
 
   return (
     <>
@@ -31,7 +32,7 @@ export default function CartSummary() {
       </div>
       <div className="flex justify-between">
         <span className="font-bold">Total</span>
-        <span>${totalCartPrice}</span>
+        <span>${totalCartPriceString}</span>
       </div>
     </>
   );
