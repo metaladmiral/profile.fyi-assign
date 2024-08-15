@@ -23,9 +23,9 @@ export default function Header() {
   const items = useAppSelector(selectItems);
 
   let itemCount = 0;
-  items.map((item) => {
-    itemCount++;
-  });
+  for (const key in items) {
+    itemCount += items[key].quantity;
+  }
 
   return (
     <>

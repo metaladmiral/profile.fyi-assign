@@ -2,13 +2,7 @@
 
 import { useAppDispatch } from "@/redux/hooks";
 import { addItem } from "@/app/cart/cartSlice";
-
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  images: string[];
-};
+import { Product } from "@/types";
 
 export default function ProductList({
   products,
@@ -18,7 +12,7 @@ export default function ProductList({
   const dispatch = useAppDispatch();
 
   const addItemToCart = (itemId: number) => {
-    dispatch(addItem([itemId]));
+    dispatch(addItem(itemId));
   };
   return (
     <>

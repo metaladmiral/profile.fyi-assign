@@ -1,15 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { useEffect } from "react";
 import { RootState } from "@/redux/store";
+import { CartItem, CartItemActions } from "@/types";
 
-type CartItemState = {
-  cartItems: Array<number>;
-};
+interface CartItems {
+  [key: string]: CartItem;
+}
 
-// initial state
+interface CartItemState {
+  cartItems: CartItems;
+}
+
 let localCartItems = localStorage.getItem("cartItems");
 if (!localCartItems) {
-  localCartItems = "[]";
+  localCartItems = "{}";
 }
 const parsedLocalCartItems = JSON.parse(localCartItems);
 
@@ -21,23 +25,36 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: initState,
   reducers: {
-    addItem: (state, action: PayloadAction<Array<number>>) => {
-      if (state.cartItems.includes(action.payload[0])) {
+    addItem: (state, action: PayloadAction<number>) => {
+      const payloadString = action.payload.toString();
+      if (state.cartItems[payloadString]) {
         return;
       }
-      state.cartItems.push(action.payload[0]);
+      state.cartItems[payloadString] = { id: action.payload, quantity: 1 };
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
-    // removeItem: (state, action) => {
-    //   state.cartItems = state.cartItems.filter(
-    //     (item) => item.id !== action.payload.id
-    //   );
-    // },
+    changeItemQuantity: (state, action: PayloadAction<CartItemActions>) => {
+      const payloadIdString = action.payload.id.toString();
+      if (!state.cartItems[payloadIdString]) {
+        return;
+      }
+      state.cartItems[action.payload.id].quantity +=
+        action.payload.action === "increment" ? 1 : -1;
+
+      if (state.cartItems[action.payload.id].quantity <= 0) {
+        state.cartItems[action.payload.id].quantity = 1;
+      }
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    removeItem: (state, action: PayloadAction<number>) => {
+      const payloadString = action.payload.toString();
+      delete state.cartItems[payloadString];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
 // actions
-export const { addItem } = cartSlice.actions;
-// export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, changeItemQuantity, removeItem } = cartSlice.actions;
 export const selectItems = (state: RootState) => state.cart.cartItems;
 export default cartSlice.reducer;
