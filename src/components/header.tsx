@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAppSelector } from "@/redux/hooks";
-import { selectItems } from "@/app/cart/cartSlice";
+import { selectItems } from "@/redux/cart/cartSlice";
 
 interface NavLinkProps {
   href: string;

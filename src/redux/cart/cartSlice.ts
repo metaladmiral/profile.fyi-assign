@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useEffect } from "react";
 import { RootState } from "@/redux/store";
 import { CartItem, CartItemActions } from "@/types";
 

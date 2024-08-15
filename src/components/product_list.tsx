@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch } from "@/redux/hooks";
-import { addItem } from "@/app/cart/cartSlice";
+import { addItem } from "@/redux/cart/cartSlice";
 import { Product } from "@/types";
 
 export default function ProductList({
