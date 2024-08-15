@@ -61,7 +61,7 @@ export default function CartItems() {
             >
               -
             </span>
-            <span className="w-6 h-6 bg-base-100 text-white rounded-full text-xs ml-2 mr-2 flex justify-center items-center text-center">
+            <span className="w-6 h-6 bg-primary text-white rounded-full text-xs ml-2 mr-2 flex justify-center items-center text-center">
               {item.quantity}
             </span>
             <span
