@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
 
 type CartItemState = {
-  cartItems: Array<string>;
+  cartItems: Array<number>;
 };
 
 // initial state
@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: initState,
   reducers: {
-    addItem: (state, action: PayloadAction<Array<string>>) => {
+    addItem: (state, action: PayloadAction<Array<number>>) => {
       if (state.cartItems.includes(action.payload[0])) {
         return;
       }

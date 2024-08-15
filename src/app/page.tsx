@@ -1,12 +1,13 @@
 import Header from "@/components/header";
 import ProductList from "@/components/product_list";
+import { products } from "@/products";
 
 export default async function Home() {
-  const res = await fetch(
-    "https://dummyjson.com/products?limit=3&select=title,price,images"
-  );
-  const jsonResponse = await res.json();
-  const products = jsonResponse.products;
+  // const res = await fetch(
+  //   "https://dummyjson.com/products?limit=10&select=title,price,images"
+  // );
+  // const jsonResponse = await res.json();
+  // const products = jsonResponse.products;
 
   return (
     <>
