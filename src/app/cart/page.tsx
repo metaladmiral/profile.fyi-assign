@@ -7,23 +7,18 @@ export default function Page() {
   return (
     <>
       <Header />
-      <br />
-      <br />
-      <div className="flex w-[80%] h-auto mx-auto relative">
-        <div className=" w-[60%] bg-gray-800 h-auto shadow-2xl rounded-lg p-7">
-          <h1 className="text-white text-xl">Cart</h1>
-          <br />
-          <div className="text-white">
+      <div className="flex w-[80%] h-auto mx-auto relative mt-10">
+        <div className=" w-[60%] bg-base-100 h-auto shadow-2xl rounded-lg p-7">
+          <h1 className="text-white text-2xl font-bold">Cart</h1>
+          <div className="text-white mt-5">
             <CartItems />
           </div>
         </div>
-        <div className=" w-[35%] bg-gray-800 h-auto shadow-xl rounded-lg top-0 absolute right-0 p-8">
-          <h1 className="text-white text-xl">Cart Summary</h1>
-          <br />
-          <div className="text-white">
+        <div className=" w-[35%] bg-base-100 h-auto shadow-xl rounded-lg top-0 absolute right-0 p-8">
+          <h1 className="text-white text-2xl font-bold">Cart Summary</h1>
+          <div className="text-white mt-5">
             <CartSummary />
-            <br />
-            <button className="bg-white text-gray-800 w-full p-2 rounded-lg">
+            <button className="btn btn-primary w-full text-white mt-5">
               Checkout
             </button>
           </div>

@@ -23,7 +23,7 @@ export default function ProductList({
           (
             <div
               key={items.title}
-              className="flex flex-col products-center p-4 bg-gray-800 rounded-lg shadow-lg justify-center items-center"
+              className="flex flex-col products-center p-4 bg-base-100 rounded-lg shadow-lg justify-center items-center"
             >
               <Image
                 src={items.images[0]}
@@ -38,7 +38,7 @@ export default function ProductList({
               <p className="mt-2 text-white">${items.price}</p>
               <button
                 type="submit"
-                className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-lg w-full"
+                className="btn btn-primary mt-4 w-full text-white"
                 onClick={() => {
                   addItemToCart(parseInt(items.id.toString()));
                 }}

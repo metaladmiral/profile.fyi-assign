@@ -27,7 +27,10 @@ export default function CartItems() {
   };
 
   const renderCartItems = Object.values(items).map((item) => (
-    <div className="flex w-full bg-gray-700 h-44 relative" key={item.id}>
+    <div
+      className="flex w-full bg-base-200 h-44 relative mt-1 mb-1"
+      key={item.id}
+    >
       <div className="left h-full w-[20%] flex justify-center items-center">
         <Image
           src={`` + products[item.id - 1].images[0]}
@@ -58,7 +61,7 @@ export default function CartItems() {
             >
               -
             </span>
-            <span className="w-6 h-6 bg-gray-800 text-white rounded-full text-xs ml-2 mr-2 flex justify-center items-center text-center">
+            <span className="w-6 h-6 bg-base-100 text-white rounded-full text-xs ml-2 mr-2 flex justify-center items-center text-center">
               {item.quantity}
             </span>
             <span
@@ -78,14 +81,27 @@ export default function CartItems() {
       </div>
 
       <div className="right h-full w-[15%] flex justify-center items-center absolute right-0">
-        <span
-          className="text-red-600 cursor-pointer"
+        <button
+          className="btn btn-square bg-red-500 text-white border-red-500"
           onClick={() => {
             removeCartItem(item.id);
           }}
         >
-          Remove
-        </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   ));

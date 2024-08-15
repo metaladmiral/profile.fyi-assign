@@ -26,7 +26,7 @@ export default function CartSummary() {
   return (
     <>
       {renderCartSummary}
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-5">
         <span className="font-bold">Shipping</span>
         <span className="text-xs text-green-500">Free</span>
       </div>
