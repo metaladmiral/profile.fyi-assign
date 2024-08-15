@@ -1,7 +1,7 @@
 import { products } from "@/products";
 import { Product } from "@/types";
 import { useAppSelector } from "@/redux/hooks";
-import { selectItems } from "@/redux/cart/cartSlice";
+import { selectItems } from "@/redux/slices/cartSlice";
 
 export default function CartSummary() {
   const items = useAppSelector(selectItems);

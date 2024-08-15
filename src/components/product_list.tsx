@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch } from "@/redux/hooks";
-import { addItem } from "@/redux/cart/cartSlice";
+import { addItem } from "@/redux/slices/cartSlice";
 import { Product } from "@/types";
 import Image from "next/image";
 

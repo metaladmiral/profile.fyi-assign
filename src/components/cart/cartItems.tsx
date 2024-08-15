@@ -3,7 +3,7 @@ import {
   selectItems,
   changeItemQuantity,
   removeItem,
-} from "@/redux/cart/cartSlice";
+} from "@/redux/slices/cartSlice";
 import { products } from "@/products";
 import Image from "next/image";
 import { CartItemActions } from "@/types";
