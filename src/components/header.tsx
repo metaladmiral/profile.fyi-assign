@@ -24,7 +24,7 @@ export default function Header() {
 
   let itemCount = 0;
   for (const key in items) {
-    itemCount += items[key].quantity;
+    itemCount++;
   }
 
   return (
