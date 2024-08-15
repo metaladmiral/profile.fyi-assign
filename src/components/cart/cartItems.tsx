@@ -40,7 +40,7 @@ export default function CartItems() {
       <div className="center h-full w-[65%] flex justify-center items-start flex-col">
         <h2 className="text-md">{products[item.id - 1].title}</h2>
         <span className="text-sm text-gray-400">
-          Rs. {products[item.id - 1].price}
+          ${products[item.id - 1].price}
         </span>
 
         <div className="flex">
