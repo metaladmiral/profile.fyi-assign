@@ -3,6 +3,7 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { addItem } from "@/redux/cart/cartSlice";
 import { Product } from "@/types";
+import Image from "next/image";
 
 export default function ProductList({
   products,
@@ -22,12 +23,14 @@ export default function ProductList({
           (
             <div
               key={items.title}
-              className="flex flex-col products-center p-4 bg-gray-800 rounded-lg shadow-lg"
+              className="flex flex-col products-center p-4 bg-gray-800 rounded-lg shadow-lg justify-center items-center"
             >
-              <img
+              <Image
                 src={items.images[0]}
                 alt={items.title}
-                className="w-48 h-48 object-cover rounded-lg"
+                width={200}
+                height={200}
+                className="w-48 h-48 object-contain rounded-lg"
               />
               <h2 className="mt-4 text-xl font-bold text-white">
                 {items.title}
@@ -35,7 +38,7 @@ export default function ProductList({
               <p className="mt-2 text-white">${items.price}</p>
               <button
                 type="submit"
-                className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-lg"
+                className="mt-4 px-4 py-2 text-white bg-blue-500 rounded-lg w-full"
                 onClick={() => {
                   addItemToCart(parseInt(items.id.toString()));
                 }}
