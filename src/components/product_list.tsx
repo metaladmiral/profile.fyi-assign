@@ -1,22 +1,39 @@
 "use client";
 
-import { useAppDispatch } from "@/redux/hooks";
-import { addItem } from "@/redux/slices/cartSlice";
 import { Product } from "@/types";
 import Image from "next/image";
+import Alert from "./alert";
+import { useState, useEffect } from "react";
+import { useCartStorage } from "@/zustand/cartStore";
+import { CartItems } from "@/types";
 
 export default function ProductList({
   products,
 }: {
   products: Array<Product>;
 }) {
-  const dispatch = useAppDispatch();
+  const [showAlert, setShowAlert] = useState("hidden");
+  // const dispatch = useAppDispatch();
+
+  // const addItemToCart = (itemId: number) => {
+  //   dispatch(addItem(itemId));
+  //   setShowAlert("show");
+  //   setTimeout(() => {
+  //     setShowAlert("hidden");
+  //   }, 4000);
+  // };
 
   const addItemToCart = (itemId: number) => {
-    dispatch(addItem(itemId));
+    // useCartStorage((state) => state.addItem({ id: itemId }));
+    let itemAsCartItems: CartItems = {};
+    itemAsCartItems[itemId] = { id: itemId, quantity: 1 };
+    useCartStorage.getState().addItem(itemAsCartItems);
   };
   return (
     <>
+      <Alert type="success" display={showAlert}>
+        Product added to Cart
+      </Alert>
       {products.map(
         (items: Product) => (
           (items.id = parseInt(items.id.toString())),

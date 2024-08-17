@@ -1,8 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useAppSelector } from "@/redux/hooks";
-import { selectItems } from "@/redux/slices/cartSlice";
 
 interface NavLinkProps {
   href: string;
@@ -20,12 +18,12 @@ function NavLink({ href, children }: NavLinkProps) {
 }
 
 export default function Header() {
-  const items = useAppSelector(selectItems);
+  // const items = useAppSelector(selectItems);
 
-  let itemCount = 0;
-  for (const key in items) {
-    itemCount++;
-  }
+  // let itemCount = 0;
+  // for (const key in items) {
+  //   itemCount++;
+  // }
 
   return (
     <>
@@ -39,7 +37,7 @@ export default function Header() {
       <nav className="w-80 mx-auto h-12 rounded-lg mt-10 flex justify-center">
         <ul className="menu menu-horizontal rounded-box bg-base-100">
           <NavLink href="/">
-            <a className="tooltip" data-tip="Home">
+            <span className="tooltip" data-tip="Home">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -54,10 +52,10 @@ export default function Header() {
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 />
               </svg>
-            </a>
+            </span>
           </NavLink>
           <NavLink href="/cart">
-            <a className="tooltip" data-tip="Stats">
+            <span className="tooltip" data-tip="Stats">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -74,10 +72,10 @@ export default function Header() {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item bg-green-500 text-white">
-                  {itemCount}
+                  {/* {itemCount} */}
                 </span>
               </div>
-            </a>
+            </span>
           </NavLink>
         </ul>
       </nav>

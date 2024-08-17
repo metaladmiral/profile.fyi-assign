@@ -1,30 +1,34 @@
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import {
-  selectItems,
-  changeItemQuantity,
-  removeItem,
-} from "@/redux/slices/cartSlice";
+"use client";
 import { products } from "@/products";
 import Image from "next/image";
 import { CartItemActions } from "@/types";
+import Alert from "@/components/alert";
+import { useState } from "react";
+import { useCartStorage } from "@/zustand/cartStore";
 
 export default function CartItems() {
-  const items = useAppSelector(selectItems);
+  const [alertState, setAlertState] = useState("hidden");
+  // const items = useAppSelector(selectItems);
+  // const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch();
+  // const updateItemQuantity = (data: CartItemActions) => {
+  //   dispatch(
+  //     changeItemQuantity({
+  //       id: data.id,
+  //       action: data.action,
+  //       quantity: data.quantity,
+  //     })
+  //   );
+  // };
+  // const removeCartItem = (itemId: number) => {
+  //   dispatch(removeItem(itemId));
+  //   setAlertState("show");
+  //   setTimeout(() => {
+  //     setAlertState("hidden");
+  //   }, 4000);
+  // };
 
-  const updateItemQuantity = (data: CartItemActions) => {
-    dispatch(
-      changeItemQuantity({
-        id: data.id,
-        action: data.action,
-        quantity: data.quantity,
-      })
-    );
-  };
-  const removeCartItem = (itemId: number) => {
-    dispatch(removeItem(itemId));
-  };
+  const items = useCartStorage((state) => state.cartItems);
 
   const renderCartItems = Object.values(items).map((item) => (
     <div
@@ -106,5 +110,12 @@ export default function CartItems() {
     </div>
   ));
 
-  return <>{renderCartItems}</>;
+  return (
+    <>
+      <Alert type="error" display={alertState}>
+        Successfully Removed Item from the Cart!
+      </Alert>
+      {renderCartItems}
+    </>
+  );
 }

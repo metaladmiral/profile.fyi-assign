@@ -1,4 +1,3 @@
-"use client";
 import Header from "@/components/header";
 import CartItems from "@/components/cart/cartItems";
 import CartSummary from "@/components/cart/cartSummary";
@@ -17,7 +16,7 @@ export default function Page() {
         <div className=" w-[35%] bg-base-100 h-auto shadow-xl rounded-lg top-0 absolute right-0 p-8">
           <h1 className="text-white text-2xl font-bold">Cart Summary</h1>
           <div className="text-white mt-5">
-            <CartSummary />
+            {/* <CartSummary /> */}
             <button className="btn btn-primary w-full text-white mt-5">
               Checkout
             </button>

@@ -1,3 +1,5 @@
+"use client";
+
 import { products } from "@/products";
 import { Product } from "@/types";
 import { useAppSelector } from "@/redux/hooks";
