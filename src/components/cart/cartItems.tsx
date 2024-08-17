@@ -8,25 +8,18 @@ import { useCartStorage } from "@/zustand/cartStore";
 
 export default function CartItems() {
   const [alertState, setAlertState] = useState("hidden");
-  // const items = useAppSelector(selectItems);
-  // const dispatch = useAppDispatch();
 
-  // const updateItemQuantity = (data: CartItemActions) => {
-  //   dispatch(
-  //     changeItemQuantity({
-  //       id: data.id,
-  //       action: data.action,
-  //       quantity: data.quantity,
-  //     })
-  //   );
-  // };
-  // const removeCartItem = (itemId: number) => {
-  //   dispatch(removeItem(itemId));
-  //   setAlertState("show");
-  //   setTimeout(() => {
-  //     setAlertState("hidden");
-  //   }, 4000);
-  // };
+  const updateItemQuantity = (itemDetails: CartItemActions) => {
+    useCartStorage.getState().updateItemQuantity(itemDetails);
+  };
+
+  const removeCartItem = (itemId: number) => {
+    useCartStorage.getState().removeItem(itemId);
+    // setAlertState("show");
+    // setTimeout(() => {
+    //   setAlertState("hidden");
+    // }, 4000);
+  };
 
   const items = useCartStorage((state) => state.cartItems);
 
@@ -56,11 +49,7 @@ export default function CartItems() {
             <span
               className="cursor-pointer"
               onClick={() => {
-                updateItemQuantity({
-                  id: item.id,
-                  action: "decrement",
-                  quantity: 1,
-                });
+                updateItemQuantity({ id: item.id, action: "decrement" });
               }}
             >
               -
@@ -71,11 +60,7 @@ export default function CartItems() {
             <span
               className="cursor-pointer"
               onClick={() => {
-                updateItemQuantity({
-                  id: item.id,
-                  action: "increment",
-                  quantity: 1,
-                });
+                updateItemQuantity({ id: item.id, action: "decrement" });
               }}
             >
               +

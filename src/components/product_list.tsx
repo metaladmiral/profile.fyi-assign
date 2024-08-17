@@ -3,9 +3,8 @@
 import { Product } from "@/types";
 import Image from "next/image";
 import Alert from "./alert";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCartStorage } from "@/zustand/cartStore";
-import { CartItems } from "@/types";
 
 export default function ProductList({
   products,
@@ -16,6 +15,10 @@ export default function ProductList({
 
   const addItemToCart = (itemId: number) => {
     useCartStorage.getState().addItem(itemId);
+    setShowAlert("show_");
+    setTimeout(() => {
+      setShowAlert("hidden");
+    }, 4000);
   };
   return (
     <>
