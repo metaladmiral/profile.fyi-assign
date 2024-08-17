@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useCartStorage } from "@/zustand/cartStore";
 
 interface NavLinkProps {
   href: string;
@@ -18,12 +19,12 @@ function NavLink({ href, children }: NavLinkProps) {
 }
 
 export default function Header() {
-  // const items = useAppSelector(selectItems);
+  const items = useCartStorage((state) => state.cartItems);
 
-  // let itemCount = 0;
-  // for (const key in items) {
-  //   itemCount++;
-  // }
+  let itemCount = 0;
+  for (const key in items) {
+    itemCount++;
+  }
 
   return (
     <>
@@ -72,7 +73,7 @@ export default function Header() {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item bg-green-500 text-white">
-                  {/* {itemCount} */}
+                  {itemCount}
                 </span>
               </div>
             </span>
