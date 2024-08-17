@@ -34,6 +34,12 @@ export const useCartStorage = create<CartState>()(
               state.cartItems[itemDetails.id.toString()].quantity += 1;
               return;
             }
+
+            //decrement logic
+            if (state.cartItems[itemDetails.id.toString()].quantity === 1) {
+              return;
+            }
+
             state.cartItems[itemDetails.id.toString()].quantity -= 1;
           })
         ),

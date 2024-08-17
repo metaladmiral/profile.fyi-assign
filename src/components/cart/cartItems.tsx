@@ -60,7 +60,7 @@ export default function CartItems() {
             <span
               className="cursor-pointer"
               onClick={() => {
-                updateItemQuantity({ id: item.id, action: "decrement" });
+                updateItemQuantity({ id: item.id, action: "increment" });
               }}
             >
               +
