@@ -5,17 +5,17 @@ import { CartItems } from "@/types";
 
 interface CartState {
   cartItems: CartItems;
-  addItem: (item: CartItems) => void;
+  addItem: (itemId: number) => void;
 }
 
 export const useCartStorage = create<CartState>()(
   persist(
     (set) => ({
       cartItems: {},
-      addItem: (cartItemData) =>
+      addItem: (itemId) =>
         set(
           produce((state) => {
-            Object.assign(state.cartItems, cartItemData);
+            state.cartItems[itemId.toString()] = { id: itemId, quantity: 1 };
           })
         ),
     }),

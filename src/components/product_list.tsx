@@ -13,21 +13,9 @@ export default function ProductList({
   products: Array<Product>;
 }) {
   const [showAlert, setShowAlert] = useState("hidden");
-  // const dispatch = useAppDispatch();
-
-  // const addItemToCart = (itemId: number) => {
-  //   dispatch(addItem(itemId));
-  //   setShowAlert("show");
-  //   setTimeout(() => {
-  //     setShowAlert("hidden");
-  //   }, 4000);
-  // };
 
   const addItemToCart = (itemId: number) => {
-    // useCartStorage((state) => state.addItem({ id: itemId }));
-    let itemAsCartItems: CartItems = {};
-    itemAsCartItems[itemId] = { id: itemId, quantity: 1 };
-    useCartStorage.getState().addItem(itemAsCartItems);
+    useCartStorage.getState().addItem(itemId);
   };
   return (
     <>
