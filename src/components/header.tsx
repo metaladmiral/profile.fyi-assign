@@ -92,6 +92,11 @@ export default function Header() {
               </div>
             </span>
           </NavLink>
+          <NavLink href="/auth/logout">
+            <span className="tooltip" data-tip="Stats">
+              <div className="indicator">Logout</div>
+            </span>
+          </NavLink>
         </ul>
       </nav>
     </>
