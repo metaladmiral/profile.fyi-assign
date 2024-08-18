@@ -1,13 +1,58 @@
+"use client";
+
 import Header from "@/components/header";
 import Link from "next/link";
+import Alert from "@/components/alert";
+import { useState } from "react";
+import { registerAction } from "./registerAction";
+import Loader from "@/components/loader";
 
 export default function Register() {
+  const [errorAlertState, setErrorAlertState] = useState("invisible");
+  const [successAlertState, setSuccessAlertState] = useState("invisible");
+  const [showLoader, setShowLoader] = useState("invisible");
+
+  const showAlert = (alertType: string) => {
+    setShowLoader("invisible");
+
+    if (alertType === "error") {
+      setErrorAlertState("visible");
+    }
+
+    if (alertType === "success") {
+      setSuccessAlertState("visible");
+    }
+
+    setTimeout(() => {
+      setSuccessAlertState("invisible");
+      setErrorAlertState("invisible");
+    }, 4500);
+  };
+
+  async function submit(e: FormData) {
+    await new Promise((r) => setTimeout(r, 0));
+    setShowLoader("visible");
+    const success = await registerAction(e);
+    if (success === true) {
+      showAlert("success");
+    } else {
+      showAlert("error");
+    }
+  }
+
   return (
     <>
       <Header />
+      <Loader show={showLoader} />
+      <Alert type="error" display={errorAlertState}>
+        Registeration Unsuccessfull. Please try again.
+      </Alert>
+      <Alert type="success" display={successAlertState}>
+        Registeration Successfull! Please login now.
+      </Alert>
       <div className="flex flex-col products-center p-4 bg-base-100 rounded-lg shadow-lg justify-center items-center w-1/3 h-auto mt-12 mx-auto *:pt-4 *:pb-4">
         <h1 className="text-3xl font-bold text-white">Register</h1>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" action={(e) => submit(e)}>
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +62,13 @@ export default function Register() {
             >
               <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" className="grow" placeholder="Username" />
+            <input
+              type="text"
+              className="grow"
+              placeholder="Username"
+              name="username"
+              required
+            />
           </label>
           <label className="input input-bordered flex items-center gap-2">
             <svg
@@ -32,7 +83,13 @@ export default function Register() {
                 clipRule="evenodd"
               />
             </svg>
-            <input type="password" className="grow" placeholder="Password" />
+            <input
+              type="password"
+              className="grow"
+              name="password"
+              placeholder="Password"
+              required
+            />
           </label>
           <button className="btn btn-primary text-white">Continue</button>
         </form>

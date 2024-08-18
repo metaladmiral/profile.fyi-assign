@@ -8,18 +8,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource profilefyi {
+datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+model Cart {
+  id                 Int      @id @default(autoincrement())
+  user_id            String
+  cart_item_id       String
+  cart_item_quantity Int      @db.TinyInt
+  User               User?    @relation(fields: [user_id], references: [user_id])
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now())
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  user_id String @unique
-  username  String
-  email String
-  password String
-  cart String
+  user_id    String   @unique
+  username   String   @unique
+  password   String
+  cart       Cart[]
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
