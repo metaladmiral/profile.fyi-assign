@@ -5,25 +5,46 @@ import Image from "next/image";
 import Alert from "./alert";
 import { useState } from "react";
 import { useCartStorage } from "@/zustand/cartStore";
+import { addItemToCartAction } from "@/app/cart/addItemToCartAction";
 
 export default function ProductList({
   products,
 }: {
   products: Array<Product>;
 }) {
-  const [showAlert, setShowAlert] = useState("hidden");
+  const [showSuccessAlert, setSuccessAlert] = useState("hidden");
+  const [showErrorAlert, setErrorAlert] = useState("hidden");
 
-  const addItemToCart = (itemId: number) => {
+  const addItemToCart = async (itemId: number) => {
     useCartStorage.getState().addItem(itemId);
-    setShowAlert("show_");
+
+    let response;
+    if (localStorage.getItem("jwt") !== null) {
+      try {
+        response = await addItemToCartAction(
+          itemId,
+          localStorage.getItem("jwt") || "TEST_JWT"
+        );
+      } catch (err) {
+        setErrorAlert("");
+        setTimeout(() => {
+          setErrorAlert("hidden");
+        }, 4000);
+      }
+    }
+
+    setSuccessAlert("");
     setTimeout(() => {
-      setShowAlert("hidden");
+      setSuccessAlert("hidden");
     }, 4000);
   };
   return (
     <>
-      <Alert type="success" display={showAlert}>
-        Product added to Cart
+      <Alert type="success" display={showSuccessAlert}>
+        Product Added to Cart
+      </Alert>
+      <Alert type="error" display={showErrorAlert}>
+        Error in Adding Product to Cart
       </Alert>
       {products.map(
         (items: Product) => (

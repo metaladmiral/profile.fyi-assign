@@ -33,6 +33,9 @@ const UserDbService = {
           username: username,
           password: hashedPass,
         },
+        include: {
+          cart: true,
+        },
       });
     } catch (err) {
       throw err;

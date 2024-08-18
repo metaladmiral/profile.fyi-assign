@@ -8,13 +8,13 @@ import env from "dotenv";
 env.config();
 
 export const loginAction = async (formData: FormData) => {
-  const JWT_TOKEN_SECRET = process.env.JWT_TOKEN_SECRET || "TEST_JWT";
+  const JWT_SECRET = process.env.JWT_SECRET || "TEST_JWT";
   const username = formData.get("username") as string;
   const pass = formData.get("password") as string;
   const hashedPass = crypto.createHash("sha256").update(pass).digest("hex");
 
   function generateAccessToken(userData: Object) {
-    return jwt.sign(userData, JWT_TOKEN_SECRET, { expiresIn: "2629800s" });
+    return jwt.sign(userData, JWT_SECRET, { expiresIn: "2629800s" });
   }
 
   try {
@@ -23,7 +23,7 @@ export const loginAction = async (formData: FormData) => {
       return false;
     }
     const jwt = generateAccessToken(user);
-    return jwt;
+    return { jwt: jwt, cart: user.cart };
   } catch (err) {
     return false;
   }

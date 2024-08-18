@@ -21,6 +21,8 @@ model Cart {
   User               User?    @relation(fields: [user_id], references: [user_id])
   created_at         DateTime @default(now())
   updated_at         DateTime @default(now())
+
+  @@unique([user_id, cart_item_id])
 }
 
 model User {

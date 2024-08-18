@@ -5,20 +5,52 @@ import { CartItemActions } from "@/types";
 import Alert from "@/components/alert";
 import { useState } from "react";
 import { useCartStorage } from "@/zustand/cartStore";
+import { removeItemFromCartAction } from "@/app/cart/removeItemToCartAction";
+import { updateItemQuantityAction } from "@/app/cart/updateItemQuantityAction";
+import Loader from "@/components/loader";
 
 export default function CartItems() {
-  const [alertState, setAlertState] = useState("hidden");
+  const [successAlert, setSuccessAlert] = useState("hidden");
+  const [errorAlert, setErrorAlert] = useState("hidden");
+  const [showLoader, setShowLoader] = useState("invisible");
 
-  const updateItemQuantity = (itemDetails: CartItemActions) => {
+  const updateItemQuantity = async (itemDetails: CartItemActions) => {
     useCartStorage.getState().updateItemQuantity(itemDetails);
+    setShowLoader("");
+    try {
+      await updateItemQuantityAction(
+        itemDetails.id,
+        localStorage.getItem("jwt") || "TEST_JWT",
+        itemDetails.action
+      );
+      setSuccessAlert("");
+    } catch (err) {
+      setErrorAlert("");
+    }
+    setShowLoader("hidden");
+    setTimeout(() => {
+      setErrorAlert("hidden");
+      setSuccessAlert("hidden");
+    }, 4000);
   };
 
-  const removeCartItem = (itemId: number) => {
+  const removeCartItem = async (itemId: number) => {
     useCartStorage.getState().removeItem(itemId);
-    // setAlertState("show");
-    // setTimeout(() => {
-    //   setAlertState("hidden");
-    // }, 4000);
+    setShowLoader("");
+    try {
+      await removeItemFromCartAction(
+        itemId,
+        localStorage.getItem("jwt") || "TEST_JWT"
+      );
+      setSuccessAlert("");
+    } catch (err) {
+      setErrorAlert("");
+    }
+    setShowLoader("hidden");
+    setTimeout(() => {
+      setErrorAlert("hidden");
+      setSuccessAlert("hidden");
+    }, 4000);
   };
 
   const items = useCartStorage((state) => state.cartItems);
@@ -49,7 +81,11 @@ export default function CartItems() {
             <span
               className="cursor-pointer"
               onClick={() => {
-                updateItemQuantity({ id: item.id, action: "decrement" });
+                updateItemQuantity({
+                  id: item.id,
+                  action: "decrement",
+                  quantity: 1,
+                });
               }}
             >
               -
@@ -60,7 +96,11 @@ export default function CartItems() {
             <span
               className="cursor-pointer"
               onClick={() => {
-                updateItemQuantity({ id: item.id, action: "increment" });
+                updateItemQuantity({
+                  id: item.id,
+                  action: "increment",
+                  quantity: 1,
+                });
               }}
             >
               +
@@ -97,8 +137,13 @@ export default function CartItems() {
 
   return (
     <>
-      <Alert type="error" display={alertState}>
-        Successfully Removed Item from the Cart!
+      <Loader show={showLoader} />
+
+      <Alert type="success" display={successAlert}>
+        Cart has been updated!
+      </Alert>
+      <Alert type="error" display={errorAlert}>
+        Cart has not been updated!
       </Alert>
       {renderCartItems}
     </>

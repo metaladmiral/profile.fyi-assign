@@ -39,8 +39,10 @@ export default function Page() {
       return;
     }
     showAlert("success");
-    localStorage.setItem("jwt", response);
-    redirect("/");
+    console.log(response.cart);
+    localStorage.setItem("jwt", response.jwt);
+    // localStorage.setItem("jwt", response.jwt);
+    // redirect("/");
   }
   return (
     <>
