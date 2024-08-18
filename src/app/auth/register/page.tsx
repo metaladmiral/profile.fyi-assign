@@ -6,8 +6,13 @@ import Alert from "@/components/alert";
 import { useState } from "react";
 import { registerAction } from "./registerAction";
 import Loader from "@/components/loader";
+import { redirect } from "next/navigation";
 
 export default function Register() {
+  if (localStorage.getItem("jwt") && localStorage.getItem("jwt") !== "") {
+    redirect("/");
+  }
+
   const [errorAlertState, setErrorAlertState] = useState("invisible");
   const [successAlertState, setSuccessAlertState] = useState("invisible");
   const [showLoader, setShowLoader] = useState("invisible");

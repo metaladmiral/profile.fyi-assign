@@ -7,8 +7,13 @@ import Loader from "@/components/loader";
 import { useState } from "react";
 import { loginAction } from "./loginAction";
 import { redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Page() {
+  if (localStorage.getItem("jwt") && localStorage.getItem("jwt") !== "") {
+    redirect("/");
+  }
+
   const [errorAlertState, setErrorAlertState] = useState("invisible");
   const [successAlertState, setSuccessAlertState] = useState("invisible");
   const [showLoader, setShowLoader] = useState("invisible");
