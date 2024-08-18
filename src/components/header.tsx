@@ -2,17 +2,19 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useCartStorage } from "@/zustand/cartStore";
+import { useEffect, useState } from "react";
 
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
+  show?: string;
 }
 
-function NavLink({ href, children }: NavLinkProps) {
+function NavLink({ href, children, show }: NavLinkProps) {
   const pathname = usePathname();
   const activeClass = pathname === href ? "text-white" : "";
   return (
-    <Link href={href}>
+    <Link href={href} className={show}>
       <li className={` text-center ${activeClass}`}>{children}</li>
     </Link>
   );
@@ -20,11 +22,20 @@ function NavLink({ href, children }: NavLinkProps) {
 
 export default function Header() {
   const items = useCartStorage((state) => state.cartItems);
+  const [showLogout, setShowLogout] = useState("hidden");
 
   let itemCount = 0;
   for (const key in items) {
     itemCount++;
   }
+
+  useEffect(() => {
+    setShowLogout(
+      localStorage.getItem("jwt") && localStorage.getItem("jwt") !== ""
+        ? `visible`
+        : "hidden"
+    );
+  }, []);
 
   return (
     <>
@@ -92,7 +103,7 @@ export default function Header() {
               </div>
             </span>
           </NavLink>
-          <NavLink href="/auth/logout">
+          <NavLink href="/auth/logout" show={showLogout}>
             <span className="tooltip" data-tip="Stats">
               <div className="indicator">Logout</div>
             </span>

@@ -4,15 +4,17 @@ import Header from "@/components/header";
 import Link from "next/link";
 import Alert from "@/components/alert";
 import Loader from "@/components/loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginAction } from "./loginAction";
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 export default function Page() {
-  if (localStorage.getItem("jwt") && localStorage.getItem("jwt") !== "") {
-    redirect("/");
-  }
+  useEffect(() => {
+    if (localStorage.getItem("jwt") && localStorage.getItem("jwt") !== "") {
+      redirect("/");
+    }
+  }, []);
 
   const [errorAlertState, setErrorAlertState] = useState("invisible");
   const [successAlertState, setSuccessAlertState] = useState("invisible");
@@ -44,10 +46,8 @@ export default function Page() {
       return;
     }
     showAlert("success");
-    console.log(response.cart);
     localStorage.setItem("jwt", response.jwt);
-    // localStorage.setItem("jwt", response.jwt);
-    // redirect("/");
+    redirect("/");
   }
   return (
     <>
