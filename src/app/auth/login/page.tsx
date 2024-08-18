@@ -7,7 +7,8 @@ import Loader from "@/components/loader";
 import { useEffect, useState } from "react";
 import { loginAction } from "./loginAction";
 import { redirect } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { useCartStorage } from "@/zustand/cartStore";
+import { CartItems } from "@/types";
 
 export default function Page() {
   useEffect(() => {
@@ -47,6 +48,16 @@ export default function Page() {
     }
     showAlert("success");
     localStorage.setItem("jwt", response.jwt);
+
+    let initCartItems: CartItems = {};
+    response.cart.forEach((item) => {
+      initCartItems[item.cart_item_id.toString()] = {
+        id: parseInt(item.cart_item_id),
+        quantity: item.cart_item_quantity,
+      };
+    });
+
+    useCartStorage.getState().initCartItems(initCartItems);
     redirect("/");
   }
   return (

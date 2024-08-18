@@ -5,6 +5,7 @@ import { CartItems, CartItemActions } from "@/types";
 
 interface CartState {
   cartItems: CartItems;
+  initCartItems: (cart: CartItems) => void;
   addItem: (itemId: number) => void;
   updateItemQuantity: (itemDetails: CartItemActions) => void;
   removeItem: (itemId: number) => void;
@@ -14,6 +15,7 @@ export const useCartStorage = create<CartState>()(
   persist(
     (set) => ({
       cartItems: {},
+      initCartItems: (cart) => set({ cartItems: cart }),
       addItem: (itemId) =>
         set(
           produce((state) => {
