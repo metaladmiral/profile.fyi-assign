@@ -2,11 +2,10 @@
 
 import { products } from "@/products";
 import { Product } from "@/types";
-import { useAppSelector } from "@/redux/hooks";
-import { selectItems } from "@/redux/slices/cartSlice";
+import { useCartStorage } from "@/zustand/cartStore";
 
 export default function CartSummary() {
-  const items = useAppSelector(selectItems);
+  const items = useCartStorage((state) => state.cartItems);
 
   const renderCartSummary = Object.values(items).map((item) => (
     <div className="flex justify-between mt-2 mb-2" key={item.id}>
