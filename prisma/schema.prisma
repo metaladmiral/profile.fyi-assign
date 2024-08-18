@@ -26,6 +26,7 @@ model Cart {
 }
 
 model User {
+  id         Int      @id @default(autoincrement())
   user_id    String   @unique
   username   String   @unique
   password   String
