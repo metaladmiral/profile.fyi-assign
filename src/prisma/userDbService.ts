@@ -26,27 +26,20 @@ const UserDbService = {
     }
   },
 
-  // validateUser: async (email: string, hashedPass: string) => {
-  //   try {
-  //     return await prisma.user.findUnique({
-  //       where: {
-  //         email: email,
-  //         pass: hashedPass,
-  //       },
-  //       include: {
-  //         Shops: {
-  //           select: {
-  //             shop_id: true,
-  //           },
-  //         },
-  //       },
-  //     });
-  //   } catch (err) {
-  //     throw err;
-  //   } finally {
-  //     prisma.$disconnect;
-  //   }
-  // },
+  validateUser: async (username: string, hashedPass: string) => {
+    try {
+      return await prisma.user.findUnique({
+        where: {
+          username: username,
+          password: hashedPass,
+        },
+      });
+    } catch (err) {
+      throw err;
+    } finally {
+      prisma.$disconnect;
+    }
+  },
 
   // getUserDetails: async (userId: string) => {
   //   try {

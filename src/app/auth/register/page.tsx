@@ -45,7 +45,7 @@ export default function Register() {
       <Header />
       <Loader show={showLoader} />
       <Alert type="error" display={errorAlertState}>
-        Registeration Unsuccessfull. Please try again.
+        Registeration Unsuccessfull. Please try again with a different username.
       </Alert>
       <Alert type="success" display={successAlertState}>
         Registeration Successfull! Please login now.
