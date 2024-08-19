@@ -63,7 +63,7 @@ export default function Page() {
   return (
     <>
       <br />
-      <Header navHidden="hidden" />
+      <Header cartTabVisibility="hidden" />
       <Loader show={showLoader} />
       <Alert type="error" display={errorAlertState}>
         Invalid Credentials! Please try again.
@@ -71,7 +71,7 @@ export default function Page() {
       <Alert type="success" display={successAlertState}>
         Loggedin. Redirecting...
       </Alert>
-      <div className="flex flex-col products-center p-4 bg-base-100 rounded-lg shadow-lg justify-center items-center w-1/3 h-auto mt-12 mx-auto *:pt-4 *:pb-4">
+      <div className="flex flex-col products-center p-4 bg-base-100 rounded-lg shadow-lg justify-center items-center w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 h-auto mt-12 mx-auto *:pt-4 *:pb-4">
         <h1 className="text-3xl font-bold text-white">Login</h1>
         <form className="flex flex-col gap-4" action={(e) => submit(e)}>
           <label className="input input-bordered flex items-center gap-2">

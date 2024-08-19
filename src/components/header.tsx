@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useCartStorage } from "@/zustand/cartStore";
 import { useEffect, useState } from "react";
 
-interface NavLinkProps {
+interface NavLinkTypes {
   href: string;
   children: React.ReactNode;
-  show?: string;
+  show?: "hidden" | "visible";
 }
 
-function NavLink({ href, children, show }: NavLinkProps) {
+function NavLink({ href, children, show }: NavLinkTypes) {
   const pathname = usePathname();
   const activeClass = pathname === href ? "text-white" : "";
   return (
@@ -20,17 +20,23 @@ function NavLink({ href, children, show }: NavLinkProps) {
   );
 }
 
-export default function Header({ navHidden }: { navHidden?: string }) {
+export default function Header({
+  cartTabVisibility,
+}: {
+  cartTabVisibility?: "hidden" | "visible";
+}) {
   const items = useCartStorage((state) => state.cartItems);
-  const [showLogout, setShowLogout] = useState("hidden");
+  const [logoutVisibility, setLogoutVisibility] = useState<
+    "hidden" | "visible"
+  >("hidden");
 
-  let itemCount = 0;
+  let cartItemCount = 0;
   for (const key in items) {
-    itemCount++;
+    cartItemCount++;
   }
 
   useEffect(() => {
-    setShowLogout(
+    setLogoutVisibility(
       localStorage.getItem("jwt") && localStorage.getItem("jwt") !== ""
         ? `visible`
         : "hidden"
@@ -47,7 +53,7 @@ export default function Header({ navHidden }: { navHidden?: string }) {
       </center>
 
       <nav
-        className={`w-80 mx-auto h-12 rounded-lg mt-10 flex justify-center ${navHidden}  `}
+        className={`w-80 mx-auto h-12 rounded-lg mt-10 flex justify-center `}
       >
         <ul className="menu menu-horizontal rounded-box bg-base-100">
           <NavLink href="/">
@@ -68,7 +74,7 @@ export default function Header({ navHidden }: { navHidden?: string }) {
               </svg>
             </span>
           </NavLink>
-          <NavLink href="/cart">
+          <NavLink href="/cart" show={cartTabVisibility}>
             <span className="tooltip" data-tip="Stats">
               <div className="indicator">
                 <svg
@@ -86,7 +92,7 @@ export default function Header({ navHidden }: { navHidden?: string }) {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item bg-green-500 text-white">
-                  {itemCount}
+                  {cartItemCount}
                 </span>
               </div>
             </span>
@@ -105,7 +111,7 @@ export default function Header({ navHidden }: { navHidden?: string }) {
               </div>
             </span>
           </NavLink>
-          <NavLink href="/auth/logout" show={showLogout}>
+          <NavLink href="/auth/logout" show={logoutVisibility}>
             <span className="tooltip" data-tip="Stats">
               <div className="indicator">Logout</div>
             </span>
