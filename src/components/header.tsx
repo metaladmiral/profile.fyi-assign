@@ -20,7 +20,7 @@ function NavLink({ href, children, show }: NavLinkProps) {
   );
 }
 
-export default function Header() {
+export default function Header({ navHidden }: { navHidden?: string }) {
   const items = useCartStorage((state) => state.cartItems);
   const [showLogout, setShowLogout] = useState("hidden");
 
@@ -46,7 +46,9 @@ export default function Header() {
         </h1>
       </center>
 
-      <nav className="w-80 mx-auto h-12 rounded-lg mt-10 flex justify-center">
+      <nav
+        className={`w-80 mx-auto h-12 rounded-lg mt-10 flex justify-center ${navHidden}  `}
+      >
         <ul className="menu menu-horizontal rounded-box bg-base-100">
           <NavLink href="/">
             <span className="tooltip" data-tip="Home">

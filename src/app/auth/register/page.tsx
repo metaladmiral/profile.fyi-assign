@@ -49,7 +49,7 @@ export default function Register() {
 
   return (
     <>
-      <Header />
+      <Header navHidden="hidden" />
       <Loader show={showLoader} />
       <Alert type="error" display={errorAlertState}>
         Registeration Unsuccessfull. Please try again with a different username.

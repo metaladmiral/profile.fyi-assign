@@ -62,7 +62,8 @@ export default function Page() {
   }
   return (
     <>
-      <Header />
+      <br />
+      <Header navHidden="hidden" />
       <Loader show={showLoader} />
       <Alert type="error" display={errorAlertState}>
         Invalid Credentials! Please try again.
