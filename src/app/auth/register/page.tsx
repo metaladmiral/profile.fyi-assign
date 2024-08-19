@@ -49,6 +49,7 @@ export default function Register() {
 
   return (
     <>
+      <br />
       <Header navHidden="hidden" />
       <Loader show={showLoader} />
       <Alert type="error" display={errorAlertState}>
