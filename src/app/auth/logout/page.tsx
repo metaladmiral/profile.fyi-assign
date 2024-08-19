@@ -7,6 +7,6 @@ export default function Page() {
     if (localStorage.getItem("jwt") && localStorage.getItem("jwt") !== "") {
       localStorage.removeItem("jwt");
     }
+    redirect("/auth/login");
   }, []);
-  redirect("/auth/login");
 }
