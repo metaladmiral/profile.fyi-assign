@@ -75,7 +75,7 @@ export default function Header({
             </span>
           </NavLink>
           <NavLink href="/cart" show={cartTabVisibility}>
-            <span className="tooltip" data-tip="Stats">
+            <span className="tooltip" data-tip="Cart">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function Header({
             </span>
           </NavLink>
           <NavLink href="/auth/login">
-            <span className="tooltip" data-tip="Stats">
+            <span className="tooltip" data-tip="Login">
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@ export default function Header({
             </span>
           </NavLink>
           <NavLink href="/auth/logout" show={logoutVisibility}>
-            <span className="tooltip" data-tip="Stats">
+            <span className="tooltip" data-tip="Logout">
               <div className="indicator">Logout</div>
             </span>
           </NavLink>
