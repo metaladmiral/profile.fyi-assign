@@ -109,7 +109,7 @@ export default function CartItems() {
         </div>
       </div>
 
-      <div className="right h-full w-[15%] flex justify-center items-center absolute right-0">
+      <div className="right h-full w-[15%] flex justify-center items-center absolute right-1">
         <button
           className="btn btn-square bg-red-500 text-white border-red-500"
           onClick={() => {
